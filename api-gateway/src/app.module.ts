@@ -4,7 +4,7 @@ import {
   RequestMethod,
   NestModule,
 } from '@nestjs/common';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createProxyMiddleware, fixRequestBody } from 'http-proxy-middleware';
 import * as process from 'node:process';
 
 const services = [
@@ -33,6 +33,9 @@ export class AppModule implements NestModule {
             target,
             changeOrigin: true,
             pathRewrite: { [`^${prefix}`]: '' },
+            on: {
+              proxyReq: fixRequestBody,
+            },
           }),
         )
         .forRoutes({ path: `${prefix}/*path`, method: RequestMethod.ALL });
