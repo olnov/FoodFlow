@@ -3,9 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './schemas/user.schema';
@@ -25,10 +22,13 @@ export class UsersController {
     return await this.usersService.findByEmail(email);
   }
 
+  // Quick accessibility test
   @Get('ping')
   ping() {
     return { status: 'auth-service is alive' };
   }
+
+  // TBD: I'm not gonna need it for the prototype
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
