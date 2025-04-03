@@ -12,6 +12,7 @@ import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { LocalAuthGuard } from './local-auth.guard';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 import { JwtService } from '@nestjs/jwt';
+import { ClientsService } from '../clients/clients.service';
 
 @Controller('')
 export class AuthController {
@@ -19,6 +20,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly refreshTokenService: RefreshTokenService,
     private readonly jwtService: JwtService,
+    private readonly clientService: ClientsService,
   ) {}
 
   @ApiOperation({ summary: 'Login' })
@@ -58,6 +60,24 @@ export class AuthController {
   @Post('logout')
   async logout(@Body('refreshToken') refreshToken: string) {
     await this.refreshTokenService.remove(refreshToken);
+  }
+
+  @Post('m2m-token')
+  async getM2MToken(
+    @Body('clientId') clientId: string,
+    @Body('clientSecret') clientSecret: string,
+  ) {
+    const client = await this.clientService.validate(clientId, clientSecret);
+    if (!client)
+      throw new UnauthorizedException('Invalid or expired client credentials');
+
+    const payload = {
+      clientId: client.clientId,
+      scope: client.scopes,
+    };
+
+    const token = this.jwtService.sign(payload, { expiresIn: '30m' });
+    return { accessToken: token };
   }
 
   @Get('ping')

@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import * as process from 'node:process';
 import { ConfigModule } from '@nestjs/config';
 import { RefreshTokenModule } from './refresh-token/refresh-token.module';
+import { ClientsModule } from './clients/clients.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { RefreshTokenModule } from './refresh-token/refresh-token.module';
       isGlobal: true,
     }),
     RefreshTokenModule,
+    ClientsModule,
   ],
 })
 export class AppModule {}

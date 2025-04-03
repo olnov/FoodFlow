@@ -4,12 +4,14 @@ import { AuthService } from './auth.service';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 import { JwtService } from '@nestjs/jwt';
 import { UnauthorizedException } from '@nestjs/common';
+import { ClientsService } from '../clients/clients.service';
 
 describe('AuthController', () => {
   let controller: AuthController;
   let authService: AuthService;
   let refreshTokenService: RefreshTokenService;
   let jwtService: JwtService;
+  let clientService: ClientsService;
 
   const mockAuthService = {
     login: jest.fn(),
@@ -25,6 +27,10 @@ describe('AuthController', () => {
     verify: jest.fn(),
   };
 
+  const mockClientService = {
+    validate: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
@@ -32,6 +38,7 @@ describe('AuthController', () => {
         { provide: AuthService, useValue: mockAuthService },
         { provide: RefreshTokenService, useValue: mockRefreshTokenService },
         { provide: JwtService, useValue: mockJwtService },
+        { provide: ClientsService, useValue: mockClientService },
       ],
     }).compile();
 
@@ -39,6 +46,7 @@ describe('AuthController', () => {
     authService = module.get<AuthService>(AuthService);
     refreshTokenService = module.get<RefreshTokenService>(RefreshTokenService);
     jwtService = module.get<JwtService>(JwtService);
+    clientService = module.get<ClientsService>(ClientsService);
   });
 
   afterEach(() => {
@@ -113,6 +121,27 @@ describe('AuthController', () => {
       await controller.logout(token);
 
       expect(refreshTokenService.remove).toHaveBeenCalledWith(token);
+    });
+  });
+
+  describe('m2m-token', () => {
+    it('should return accessToken for m2m communications', async () => {
+      const token = {
+        accessToken: 'new.access.token',
+      };
+
+      const payload = {
+        userId: '123',
+        clientSecret: 'mySecret',
+      };
+
+      (clientService.validate as jest.Mock).mockResolvedValue(token);
+
+      const result = await controller.getM2MToken(
+        payload.userId,
+        payload.clientSecret,
+      );
+      expect(result).toEqual(token);
     });
   });
 });
