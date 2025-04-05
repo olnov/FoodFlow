@@ -9,6 +9,14 @@ async function bootstrap() {
     .setTitle('FoodFlow Inventory Service')
     .setDescription('FoodFlow Inventory Service API')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'JWT-auth',
+    )
     .addTag('inventory-service')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);

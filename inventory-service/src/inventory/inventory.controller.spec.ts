@@ -8,11 +8,9 @@ describe('InventoryController', () => {
   let service: InventoryService;
 
   const sampleItem: CreateInventoryItemDto = {
-    name: 'Oranges',
-    description: 'Oranges from Spain',
+    catalogItemId: 'oranges455',
     quantity: 100,
     price: 2.99,
-    unit: 'kg',
   };
 
   const mockInventoryService = {
