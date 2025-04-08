@@ -7,7 +7,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/togin.dto';
+import { LoginDto } from './dto/login.dto';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { LocalAuthGuard } from './local-auth.guard';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
