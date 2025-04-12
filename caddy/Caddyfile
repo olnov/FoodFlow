@@ -1,0 +1,23 @@
+:80 {
+
+    handle_path /auth/* {
+        reverse_proxy auth-service:3013
+    }
+
+    handle_path /inventory/* {
+        reverse_proxy inventory-service:3011
+    }
+
+    handle_path /catalog/* {
+        reverse_proxy product_catalog_service:3012
+    }
+
+    handle_path /* {
+        reverse_proxy web_ui:3014
+    }
+
+    # Optional: health check or fallback
+    handle {
+        respond "Not found" 404
+    }
+}

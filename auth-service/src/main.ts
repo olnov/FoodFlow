@@ -12,7 +12,7 @@ async function bootstrap() {
     .addTag('auth-service')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+  SwaggerModule.setup('api/v1/docs', app, documentFactory);
 
   await app.listen(process.env.PORT ?? 3013);
 }

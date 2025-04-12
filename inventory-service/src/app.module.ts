@@ -12,7 +12,7 @@ import { JwtStrategy } from './auth/jwt.strategy';
       isGlobal: true,
     }),
     MongooseModule.forRoot(
-      process.env.MONGODB_URI || 'mongodb://localhost:27017/inventory_service',
+      process.env.INV_DB_URI || 'mongodb://localhost:27017/inventory_service',
     ),
     InventoryModule,
   ],

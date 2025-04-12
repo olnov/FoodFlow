@@ -9,7 +9,7 @@ import { JwtStrategy } from './auth/jwt.strategy';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      process.env.MONGODB_URI ||
+      process.env.CAT_DB_URI ||
         'mongodb://localhost:27017/product_catalog_service',
     ),
     ConfigModule.forRoot({

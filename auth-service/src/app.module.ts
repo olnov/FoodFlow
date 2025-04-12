@@ -11,7 +11,7 @@ import { ClientsModule } from './clients/clients.module';
   imports: [
     AuthModule,
     MongooseModule.forRoot(
-      process.env.MONGODB_URI || 'mongodb://localhost:27017/auth_service',
+      process.env.AUTH_DB_URI || 'mongodb://localhost:27017/auth_service',
     ),
     UsersModule,
     ConfigModule.forRoot({
