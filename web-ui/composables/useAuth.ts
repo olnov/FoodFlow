@@ -1,13 +1,13 @@
 import type { NitroFetchOptions } from "nitropack/types";
 
-const BACKEND_URL = "http://localhost:3010";
-
 type LoginResponse = {
     accessToken: string;
     refreshToken: string;
 }
 
 export const useAuth = () => {
+    const config = useRuntimeConfig()
+    const BACKEND_URL = config.public.BACKEND_URL
 
     const login = async (email: string, password: string) => {
         const requestOptions: NitroFetchOptions<any> = {
@@ -19,7 +19,7 @@ export const useAuth = () => {
         };
 
         try {
-            const response: LoginResponse = await $fetch(`${BACKEND_URL}/auth/login`, requestOptions);
+            const response: LoginResponse = await $fetch(`${BACKEND_URL}/auth/api/v1/login`, requestOptions);
             // Store access token in localStorage or cookie
             localStorage.setItem('accessToken', response.accessToken);
 

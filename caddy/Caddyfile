@@ -9,11 +9,11 @@
     }
 
     handle_path /catalog/* {
-        reverse_proxy product_catalog_service:3012
+        reverse_proxy product-catalog-service:3012
     }
 
     handle_path /* {
-        reverse_proxy web_ui:3014
+        reverse_proxy web-ui:3014
     }
 
     # Optional: health check or fallback

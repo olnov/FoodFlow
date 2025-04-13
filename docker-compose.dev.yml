@@ -84,11 +84,14 @@ services:
     build:
       context: ./web-ui
       dockerfile: Dockerfile
+      args:
+        BACKEND_URL: "http://localhost"
     expose:
       - "3014"
     environment:
       - NODE_ENV=production
       - BACKEND_URL=${BACKEND_URL}
+    command: sh -c "node /app/server/index.mjs"
     networks:
       - food-flow-network
     restart: unless-stopped

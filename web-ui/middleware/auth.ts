@@ -1,7 +1,7 @@
-import {process} from "std-env";
+// import {process} from "std-env";
 
 export default defineNuxtRouteMiddleware((to, from) => {
-    const token = process.client ? localStorage.getItem('accessToken') : null;
+    const token = import.meta.client ? localStorage.getItem('accessToken') : null;
 
     if (!token) {
         return navigateTo('/forbidden');
