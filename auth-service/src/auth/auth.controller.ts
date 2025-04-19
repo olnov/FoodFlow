@@ -13,6 +13,7 @@ import { LocalAuthGuard } from './local-auth.guard';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 import { JwtService } from '@nestjs/jwt';
 import { ClientsService } from '../clients/clients.service';
+import { M2MTokenDto } from './dto/m2m-token.dto';
 
 @Controller('')
 export class AuthController {
@@ -63,10 +64,8 @@ export class AuthController {
   }
 
   @Post('m2m-token')
-  async getM2MToken(
-    @Body('clientId') clientId: string,
-    @Body('clientSecret') clientSecret: string,
-  ) {
+  async getM2MToken(@Body() m2mTokenDto: M2MTokenDto) {
+    const { clientId, clientSecret } = m2mTokenDto;
     const client = await this.clientService.validate(clientId, clientSecret);
     if (!client)
       throw new UnauthorizedException('Invalid or expired client credentials');

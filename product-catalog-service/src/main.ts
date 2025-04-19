@@ -5,11 +5,14 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api/v1');
+
   const config = new DocumentBuilder()
     .setTitle('FoodFlow Product Catalog')
     .setDescription('FoodFlow Product Catalog Service')
     .setVersion('1.0')
     .addTag('product catalog')
+    .addServer('/catalog')
     .addBearerAuth(
       {
         type: 'http',

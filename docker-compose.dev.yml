@@ -54,6 +54,9 @@ services:
       - INV_DB_URI=${INV_DB_URI}
       - INV_M2M_ID=${INV_M2M_ID}
       - INV_M2M_SECRET=${INV_M2M_SECRET}
+      - CATALOG_SERVICE_URL=${CATALOG_SERVICE_URL}
+      - INVENTORY_SERVICE_URL=${INVENTORY_SERVICE_URL}
+      - AUTH_SERVICE_URL=${AUTH_SERVICE_URL}
     depends_on:
       - mongo-service
     command: sh -c "node dist/main.js"
@@ -73,6 +76,9 @@ services:
       - CAT_DB_URI=${CAT_DB_URI}
       - CAT_M2M_ID=${CAT_M2M_ID}
       - CAT_M2M_SECRET=${CAT_M2M_SECRET}
+      - INVENTORY_SERVICE_URL=${INVENTORY_SERVICE_URL}
+      - CATALOG_SERVICE_URL=${CATALOG_SERVICE_URL}
+      - AUTH_SERVICE_URL=${AUTH_SERVICE_URL}
     depends_on:
       - mongo-service
     command: sh -c "node dist/main.js"

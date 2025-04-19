@@ -11,6 +11,7 @@ async function bootstrap() {
     .setTitle('FoodFlow Auth-Service')
     .setDescription('Food Flow Auth Service')
     .setVersion('1.0')
+    .addServer('/auth')
     .addTag('auth-service')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);

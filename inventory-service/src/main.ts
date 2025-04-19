@@ -5,10 +5,13 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api/v1');
+
   const config = new DocumentBuilder()
     .setTitle('FoodFlow Inventory Service')
     .setDescription('FoodFlow Inventory Service API')
     .setVersion('1.0')
+    .addServer('/inventory')
     .addBearerAuth(
       {
         type: 'http',

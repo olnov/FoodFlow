@@ -59,8 +59,8 @@ export class InventoryService {
       clientId: string | undefined;
       clientSecret: string | undefined;
     } = {
-      clientId: this.configService.get<string>('M2M_CLIENT_ID'),
-      clientSecret: this.configService.get<string>('M2M_CLIENT_SECRET'),
+      clientId: this.configService.get<string>('INV_M2M_ID'),
+      clientSecret: this.configService.get<string>('INV_M2M_SECRET'),
     };
 
     const res = await firstValueFrom(
