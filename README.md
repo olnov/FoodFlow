@@ -40,18 +40,18 @@ CAT_M2M_ID=product_catalog_service
 CAT_M2M_SECRET=password!1
 BACKEND_URL=http://caddy
 ```
-# Запуск через docker compose
-```shell
+## Запуск через docker compose
+```console
 docker compose -f docker-compose.dev.yml up 
 ```
-# Создание сервисных учетных записей
-```shell
+## Создание сервисных учетных записей
+```console
 cd seed
 pip install -r requirements.txt
 python seed_data.py
 ```
-# Наполнение каталога тестовыми данными (опционально)
-```shell
+## Наполнение каталога тестовыми данными (опционально)
+```console
 cd seed
 pip install -r requirements.txt
 python seed_catalog_data.py
