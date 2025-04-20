@@ -41,6 +41,18 @@ CAT_M2M_SECRET=password!1
 BACKEND_URL=http://caddy
 ```
 # Запуск через docker compose
-```cmd
+```shell
 docker compose -f docker-compose.dev.yml up 
+```
+# Создание сервисных учетных записей
+```shell
+cd seed
+pip install -r requirements.txt
+python seed_data.py
+```
+# Наполнение каталога тестовыми данными (опционально)
+```shell
+cd seed
+pip install -r requirements.txt
+python seed_catalog_data.py
 ```
