@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {getPaginationRowModel} from '@tanstack/vue-table'
-import {h, onMounted, ref, computed, watch} from 'vue'
+import {h, onMounted, ref, computed, watch, reactive} from 'vue'
 import type {FormSubmitEvent, TableColumn} from '@nuxt/ui'
 import {UButton} from "#components"
 import {useCatalog} from "~/composables/useCatalog"
@@ -13,7 +13,7 @@ definePageMeta({
 // Composables and Refs
 const {deleteCatalogItem, addCatalogItem, getCatalogItems, editCatalogItem} = useCatalog()
 const toast = useToast()
-const table = ref() // Template ref for table instance
+const table = ref()
 const UBadge = resolveComponent('UBadge')
 
 // State
@@ -39,7 +39,7 @@ const initialFormState = {
 }
 const item = reactive<Partial<CatalogItem>>({...initialFormState})
 
-// Computed
+// Computed rows for pagination
 const filteredData = computed(() => {
   if (!globalFilter.value) return data.value
   return data.value.filter((item) =>
@@ -49,7 +49,7 @@ const filteredData = computed(() => {
   )
 })
 
-// Columns
+
 const columns: TableColumn<CatalogItem>[] = [
   {
     accessorKey: '_id',
@@ -166,7 +166,6 @@ const loadCatalogItems = async () => {
   data.value = await getCatalogItems()
 }
 
-// Watchers
 watch(globalFilter, () => {
   // Reset to first page when filtering
   if (table.value?.tableApi) {

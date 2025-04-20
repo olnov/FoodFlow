@@ -19,14 +19,15 @@ const {
   deleteInventoryItem
 } = useInventory()
 
+
 const {getCatalogItems} = useCatalog()
 const toast = useToast()
+
 
 const data = ref<InventoryItem[]>([])
 const isOpen = ref(false)
 const isEditing = ref(false)
 const searchQuery = ref('')
-
 const catalogItems = ref<CatalogItem[]>([])
 const searchResults = ref<CatalogItem[]>([])
 
