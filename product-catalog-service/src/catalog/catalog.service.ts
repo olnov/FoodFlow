@@ -11,8 +11,9 @@ export class CatalogService {
     @InjectModel(CatalogItem.name) private catalogModel: Model<CatalogItem>,
   ) {}
 
-  async findAll() {
-    return this.catalogModel.find().exec();
+  async findAll(search?: string): Promise<CatalogItem[]> {
+    const query = search ? { name: { $regex: search, $options: 'i' } } : {};
+    return this.catalogModel.find(query).exec();
   }
 
   async findById(id: string) {
@@ -39,7 +40,7 @@ export class CatalogService {
   async delete(id: string) {
     const result = await this.catalogModel.deleteOne({ _id: id }).exec();
     if (result.deletedCount === 0) {
-      throw new NotFoundException('No Catalog Found');
+      throw new NotFoundException('Catalog items not found');
     }
   }
 }

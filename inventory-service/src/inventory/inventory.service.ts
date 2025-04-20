@@ -6,6 +6,7 @@ import { CreateInventoryItemDto } from './dto/create-inventory.dto';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
+import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
 @Injectable()
 export class InventoryService {
@@ -30,6 +31,23 @@ export class InventoryService {
 
   async findAll() {
     return await this.inventoryItemModel.find().exec();
+  }
+
+  async update(
+    id: string,
+    updateInventoryItemDto: Partial<UpdateInventoryDto>,
+  ) {
+    return this.inventoryItemModel.findByIdAndUpdate(
+      id,
+      updateInventoryItemDto,
+    );
+  }
+
+  async delete(id: string) {
+    const result = await this.inventoryItemModel.deleteOne({ _id: id }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException('Inventory item not found');
+    }
   }
 
   private async checkCatalogItem(catalogItemId: string) {

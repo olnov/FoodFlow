@@ -65,8 +65,69 @@ export const useInventory = () => {
         }
     }
 
+    const updateInventoryItem = async (id: string, item: Partial<InventoryItem>) => {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            throw new Error('Unauthorized');
+        }
+
+        try {
+            const requestOptions: NitroFetchOptions<any> = {
+                method: "PATCH",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: item,
+            }
+
+            return await $fetch(`${BACKEND_URL}/inventory/api/v1/inventory/${id}`, requestOptions);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw createError({
+                    message: error.message || 'Can\'t update inventory item',
+                })
+            } else {
+                console.error(error)
+                throw createError({
+                    message: 'Something went wrong, please check the log',
+                })
+            }
+        }
+    }
+
+    const deleteInventoryItem = async (id: string): Promise<void> => {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            throw new Error('Unauthorized');
+        }
+
+        try {
+            const requestOptions: NitroFetchOptions<any> = {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+
+            return await $fetch(`${BACKEND_URL}/inventory/api/v1/inventory/${id}`, requestOptions);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw createError({
+                    message: error.message || 'Can\'t delete inventory item',
+                })
+            } else {
+                console.error(error)
+                throw createError({
+                    message: 'Something went wrong, please check the log',
+                })
+            }
+        }
+    }
+
     return {
         addInventoryItem,
         getInventoryItems,
+        updateInventoryItem,
+        deleteInventoryItem,
     }
 }

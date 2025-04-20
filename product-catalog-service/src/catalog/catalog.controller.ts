@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CatalogService } from './catalog.service';
@@ -17,6 +18,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { UpdateCatalogItemDto } from './dto/update-catalog.dto';
+import { CatalogItem } from './schemas/catalog-item.schema';
 
 @UseGuards(JwtAuthGuard)
 @Controller('catalog')
@@ -34,8 +36,8 @@ export class CatalogController {
   @ApiOkResponse({ description: 'Catalog items successfully retrieved' })
   @ApiBearerAuth('JWT-auth')
   @Get()
-  async findAll() {
-    return await this.catalogService.findAll();
+  async findAll(@Query('search') search?: string): Promise<CatalogItem[]> {
+    return await this.catalogService.findAll(search);
   }
 
   @ApiOkResponse({ description: 'Catalog item successfully retrieved' })

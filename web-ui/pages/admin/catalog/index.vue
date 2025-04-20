@@ -156,10 +156,9 @@ onMounted(async () => {
 
 <template>
   <div class="flex flex-col flex-1 w-full">
-    <div class="flex px-4 py-3.5 border-b border-(--ui-border-accented)">
-      <UInput v-model="globalFilter" class="max-w-sm" placeholder="Filter..." />
-      <span/>
-      <UButton label="Add Item" color="primary" @click="handleAdd" />
+    <div class="flex justify-between items-center">
+      <UInput v-model="globalFilter" placeholder="Filter items..." class="max-w-sm" />
+      <UButton color="primary" @click="handleAdd">Add catalog item</UButton>
     </div>
 
     <UTable

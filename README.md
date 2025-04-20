@@ -27,9 +27,9 @@ FoodFlow — система управления продовольственн�
 ## Пример переменных для установки с помощью docker compose
 
 ```dotenv
-INVENTORY_SERVICE_URL=http://inventory-service:3011
-CATALOG_SERVICE_URL=http://catalog-service:3012
-AUTH_SERVICE_URL=http://auth-service:3013
+INVENTORY_SERVICE_URL="http://inventory-service:3011/api/v1"
+CATALOG_SERVICE_URL="http://product-catalog-service:3012/api/v1"
+AUTH_SERVICE_URL="http://auth-service:3013/api/v1"
 JWT_SECRET=my_super_secret
 AUTH_DB_URI=mongodb://mongo-service:27017/auth_service
 INV_DB_URI=mongodb://mongo-service:27017/inventory_service
@@ -38,6 +38,9 @@ INV_M2M_ID=inventory_service
 INV_M2M_SECRET=password!1
 CAT_M2M_ID=product_catalog_service
 CAT_M2M_SECRET=password!1
-BACKEND_URL=http://localhost
+BACKEND_URL=http://caddy
 ```
-
+# Запуск через docker compose
+```cmd
+docker compose -f docker-compose.dev.yml up 
+```

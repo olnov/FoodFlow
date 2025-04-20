@@ -32,7 +32,7 @@ export const useCatalog = ()=>{
         }
     }
 
-    const getCatalogItems = async (): Promise<CatalogItem[]> => {
+    const getCatalogItems = async (query: string = '' ): Promise<CatalogItem[]> => {
         const token = localStorage.getItem("accessToken");
         if (!token) {
             throw new Error('Unauthorized');
@@ -44,6 +44,7 @@ export const useCatalog = ()=>{
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
+                params: query ? { search: query } : {},
             }
 
             return await $fetch(`${BACKEND_URL}/catalog/api/v1/catalog`, requestOptions);
