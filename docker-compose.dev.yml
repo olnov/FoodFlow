@@ -91,7 +91,7 @@ services:
       context: ./web-ui
       dockerfile: Dockerfile
       args:
-        BACKEND_URL: "http://localhost"
+        BACKEND_URL: ${BACKEND_URL}
     expose:
       - "3014"
     environment:
