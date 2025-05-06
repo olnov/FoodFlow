@@ -18,11 +18,11 @@ FoodFlow is a food inventory management system built on a microservice architect
 
 ## High-level architecture
 
-![HL Architecture](./doc-images/hl-architecture.png)
+![HL Architecture](./doc-images/HL-Arch.svg)
 
 ## Example of inventory and catalog interactions
 
-![C-I UML](./doc-images/catalog-inventory-uml.png)
+![C-I UML](./doc-images/Interactions-diagram.svg)
 
 ## Authentication and authorisation
 The current implementation uses JWT token-based authorization for users, as well as for microservices as part of the Passport Strategy.
