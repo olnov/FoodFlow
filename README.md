@@ -1,39 +1,38 @@
 ## FoodFlow
 
-FoodFlow — система управления продовольственными запасами, построенная на микросервисной архитектуре. Приложение предназначено для отслеживания, анализа и контроля пищевых продуктов на складах, в учреждениях и организациях.
+FoodFlow is a food inventory management system built on a microservice architecture. The application is designed for tracking, analysing, and controlling food products in warehouses, institutions, and organizations.
 
-## Основные возможности:
- - Учёт остатков продуктов по категориям, единицам измерения и срокам годности
- - Управление каталогом продуктов
- - Централизованная аутентификация пользователей
- - Единая точка входа через API Gateway
- - Веб-интерфейс для сотрудников и администраторов
+## Key features:
+ - Tracking product stock by categories, units of measurement, and expiration dates
+ - Managing a product catalog
+ - Centralized user authentication
+ - Single entry point via API Gateway
+ - Web interface for employees and administrators
 
-## Технологии:
- - NestJS + TypeScript (бэкенд)
- - MongoDB (база данных)
- - Swagger (документация API)
- - Docker / Docker Compose (развёртывание)
- - Микросервисная архитектура: разделение по доменам (аутентификация, инвентаризация, каталог и др.)
+## Technology stack:
+ - NestJS + TypeScript (backend)
+ - MongoDB (database)
+ - Swagger (API documentation)
+ - Docker / Docker Compose (deployment)
+ - Microservice architecture: domain-based separation (authentication, inventory, catalog, etc.)
 
-## Выскооуровневоя архитектура
+## High-level architecture
 
 ![HL Architecture](./doc-images/hl-architecture.png)
 
-## Пример взаимодействия каталога и инветорки
+## Example of inventory and catalog interactions
 
 ![C-I UML](./doc-images/catalog-inventory-uml.png)
 
-## Аутентификация/Авторизация
-В текущей реализации используется авторизация по JWT токенам для пользователей, а также для микросервисов как часть Passport Strategy.
-Для пользователей создаются учетные записи в таблице Users, для микросервисов создаются сервисные учетные записи в таблице
-Clients соответсвенно.
-Время жизни токено в текущей реализации не меняется и составляет:
- - Пользовательский AccessToken - 15 минут.
- - Сервисный токен - 30 минут.
- - Рефреш токен - 7 дней.
+## Authentication and authorisation
+The current implementation uses JWT token-based authorization for users, as well as for microservices as part of the Passport Strategy.
+User accounts are created in the Users table, while service accounts for microservices are stored in the Clients table.
+Token lifetimes in the current implementation are fixed as follows:
+ - User AccessToken: 15 minutes
+ - Service token: 30 minutes
+ - Refresh token: 7 days
 
-## Пример переменных для установки с помощью docker compose
+## Env variables example to spin up with docker compose
 
 ```dotenv
 INVENTORY_SERVICE_URL="http://inventory-service:3011/api/v1"
@@ -49,30 +48,30 @@ CAT_M2M_ID=product_catalog_service
 CAT_M2M_SECRET=password!1
 BACKEND_URL=http://caddy
 ```
-## Запуск через docker compose
+## Run with docker compose
 ```console
 docker compose -f docker-compose.dev.yml up 
 ```
 
-## Создание учетной записи администратора
+## Creating an admin account
 ```console
 cd seed
 pip install -r requirements.txt
 python seed_users.py
 ```
-## Создание сервисных учетных записей
+## Creating service accounts
 ```console
 cd seed
 pip install -r requirements.txt
 python seed_service_accounts.py
 ```
-## Наполнение каталога тестовыми данными
+## Seed catalog with test data 
 ```console
 cd seed
 pip install -r requirements.txt
 python seed_catalog.py
 ```
-## Использование SwaggerUI
+## SwaggerUI
 
  - http://localhost/auth/api/v1/docs - Auth Service SwaggerUI
  - http://lolalhost/inventory/api/v1/docs - Inventory Service SwaggerUI
